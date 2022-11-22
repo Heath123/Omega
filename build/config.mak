@@ -16,5 +16,5 @@ EPSILON_I18N ?= en fr nl pt it de es hu
 EPSILON_COUNTRIES ?= WW CA DE ES FR GB IT NL PT US
 EPSILON_GETOPT ?= 0
 ESCHER_LOG_EVENTS_BINARY ?= 0
-THEME_NAME ?= omega_dark
+THEME_NAME ?= omega_light
 THEME_REPO ?= local
