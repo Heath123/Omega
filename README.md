@@ -129,7 +129,7 @@ You need devkitPro and devkitARM installed and in your path (instructions [here]
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout --recursive omega-dev
+git checkout --recursive omega-master
 make PLATFORM=simulator TARGET=3ds -j$(nproc)
 ```
 You can then put epsilon.3dsx on a SD card to run it from the HBC or use 3dslink to launch it over the network:
@@ -149,7 +149,7 @@ Next:
 ```bash
 git clone --recursive https://github.com/Omega-Numworks/Omega.git
 cd Omega
-git checkout --recursive omega-dev
+git checkout --recursive omega-master
 make PLATFORM=simulator TARGET=prizm -j$(nproc)
 ```
 Then copy the file at `./output/release/simulator/prizm/epsilon.g3a` to the calculator over USB.
