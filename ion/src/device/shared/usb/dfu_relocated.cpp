@@ -14,7 +14,7 @@ namespace USB {
 
 typedef void (*PollFunctionPointer)(bool exitWithKeyboard);
 
-void DFU(bool exitWithKeyboard) {
+void DFU(bool exitWithKeyboard, int slot) {
   Ion::updateSlotInfo();
 
   /* DFU transfers can serve two purposes:

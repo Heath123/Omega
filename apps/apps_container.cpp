@@ -146,6 +146,10 @@ bool AppsContainer::dispatchEvent(Ion::Events::Event event) {
        * We do it before switching to USB application to redraw the battery
        * pictogram. */
       updateBatteryState();
+      if (GlobalPreferences::sharedGlobalPreferences()->isInExamMode()) {
+		//if in exam mode, do not switch to usb connected app
+		return true;
+	  }
       if (switchTo(usbConnectedAppSnapshot())) {
         Ion::USB::DFU();
         // Update LED when exiting DFU mode

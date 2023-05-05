@@ -13,7 +13,8 @@ private:
   static void drawImage(KDContext* ctx, const Image* image, int offset); 
 
 public:
-  static void draw();
+  static void draw(int currentUSB);
+  static void drawMessageBox(const char* line1, const char* line2);
 
 };
 

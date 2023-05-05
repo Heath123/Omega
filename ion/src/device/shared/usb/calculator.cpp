@@ -7,10 +7,10 @@ namespace Ion {
 namespace Device {
 namespace USB {
 
-void Calculator::PollAndReset(bool exitWithKeyboard) {
+void Calculator::PollAndReset(bool exitWithKeyboard, int slot) {
   char serialNumber[Ion::Device::SerialNumber::Length+1];
   Ion::Device::SerialNumber::copy(serialNumber);
-  Calculator c(serialNumber);
+  Calculator c(serialNumber, slot);
 
   /* Leave DFU mode if the Back key is pressed, the calculator unplugged or the
    * USB core soft-disconnected. */

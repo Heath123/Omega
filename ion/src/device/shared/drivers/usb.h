@@ -12,7 +12,7 @@ void initGPIO();
 void shutdownGPIO();
 void initOTG();
 void shutdownOTG();
-const char* stringDescriptor();
+const char* stringDescriptor(int slot = 3);
 
 }
 }

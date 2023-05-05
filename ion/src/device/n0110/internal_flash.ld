@@ -1,7 +1,8 @@
 /* Same as flash.ld but everything is linked in internal flash */
 
 MEMORY {
-  INTERNAL_FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 64K
+  INTERNAL_FLASH (rx) : ORIGIN = 0x00200000, LENGTH = 64K
+  INTERNAL_FLASH_AXIM (rx) : ORIGIN = 0x08000000, LENGTH = 64K
   SRAM (rw)  : ORIGIN = 0x20000000, LENGTH = 256K
 }
 
@@ -40,11 +41,11 @@ SECTIONS {
   } >INTERNAL_FLASH
 
   .exam_mode_buffer ORIGIN(INTERNAL_FLASH) + FLASH_SECOND_SECTOR_OFFSET : {
-    _exam_mode_buffer_start = .;
+    _exam_mode_buffer_start = ORIGIN(INTERNAL_FLASH_AXIM) + FLASH_SECOND_SECTOR_OFFSET;
     KEEP(*(.exam_mode_buffer))
     /* Note: We don't increment "." here, we set it. */
     . = ORIGIN(INTERNAL_FLASH) + FLASH_SECOND_SECTOR_OFFSET + FLASH_SECOND_SECTOR_SIZE;
-    _exam_mode_buffer_end = .;
+    _exam_mode_buffer_end = ORIGIN(INTERNAL_FLASH_AXIM) + FLASH_SECOND_SECTOR_OFFSET + FLASH_SECOND_SECTOR_SIZE;
   } >INTERNAL_FLASH
 
   .text : {

@@ -23,34 +23,34 @@ void DFUInterface::StateData::push(Channel * c) const {
 }
 
 void DFUInterface::wholeDataReceivedCallback(SetupPacket * request, uint8_t * transferBuffer, uint16_t * transferBufferLength) {
-  if (request->bRequest() == (uint8_t) DFURequest::Download) {
+    if (request->bRequest() == (uint8_t) DFURequest::Download) {
     // Handle a download request
-    if (request->wValue() == 0) {
-      // The request is a special command
-      switch (transferBuffer[0]) {
-        case (uint8_t) DFUDownloadCommand::SetAddressPointer:
-          setAddressPointerCommand(request, transferBuffer, *transferBufferLength);
-          return;
-        case (uint8_t) DFUDownloadCommand::Erase:
-          eraseCommand(transferBuffer, *transferBufferLength);
-          return;
-        default:
-          m_state = State::dfuERROR;
-          m_status = Status::errSTALLEDPKT;
-          return;
-      }
-    }
+        if (request->wValue() == 0) {
+            // The request is a special command
+            switch (transferBuffer[0]) {
+            case (uint8_t)DFUDownloadCommand::SetAddressPointer:
+                setAddressPointerCommand(request, transferBuffer, *transferBufferLength);
+                return;
+            case (uint8_t)DFUDownloadCommand::Erase:
+                eraseCommand(transferBuffer, *transferBufferLength);
+                return;
+            default:
+                m_state = State::dfuERROR;
+                m_status = Status::errSTALLEDPKT;
+                return;
+            }
+        }
     if (request->wValue() == 1) {
       m_ep0->stallTransaction();
       return;
     }
     if (request->wLength() > 0) {
-      // The request is a "real" download. Compute the writing address.
-      m_writeAddress = (request->wValue() - 2) * Endpoint0::MaxTransferSize + m_addressPointer;
-      // Store the received data until we copy it on the flash.
-      memcpy(m_largeBuffer, transferBuffer, *transferBufferLength);
-      m_largeBufferLength = *transferBufferLength;
-      m_state = State::dfuDNLOADSYNC;
+        // The request is a "real" download. Compute the writing address.
+        m_writeAddress = (request->wValue() - 2) * Endpoint0::MaxTransferSize + m_addressPointer;
+        // Store the received data until we copy it on the flash.
+        memcpy(m_largeBuffer, transferBuffer, *transferBufferLength);
+        m_largeBufferLength = *transferBufferLength;
+        m_state = State::dfuDNLOADSYNC;
     }
   }
 }

@@ -31,13 +31,16 @@ static const uint32_t SlotBExamModeBufferEndNewVersions = 0x90800000;
 
 class SlotsExamMode{
   public:
-    static uint8_t FetchSlotAExamMode(bool newVersion);
-    static uint8_t FetchSlotBExamMode(bool newVerion);
+    static uint8_t FetchSlotExamMode(const char* version, const char* Slot);
     
-    static uint32_t getSlotAStartExamAddress(bool newVersion);
-    static uint32_t getSlotAEndExamAddress(bool newVersion);
-    static uint32_t getSlotBStartExamAddress(bool newVersion);
-    static uint32_t getSlotBEndExamAddress(bool newVersion);
+    static uint32_t getSlotAStartExamAddress(int ExamVersion);
+    static uint32_t getSlotAEndExamAddress(int ExamVersion);
+    static uint32_t getSlotBStartExamAddress(int ExamVersion);
+    static uint32_t getSlotBEndExamAddress(int ExamVersion);
+    static uint8_t examFetch15(uint32_t start, uint32_t end);
+    static uint8_t examFetch1718(uint32_t start, uint32_t end);
+    static uint8_t examFetch16(uint32_t start, uint32_t end);
+    static uint8_t examFetch19(uint32_t start, uint32_t end);
 
 };
 

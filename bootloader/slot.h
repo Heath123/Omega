@@ -14,11 +14,13 @@ class Slot {
 public:
   Slot(uint32_t address) :
     m_kernelHeader(reinterpret_cast<KernelHeader*>(address)),
-    m_userlandHeader(reinterpret_cast<UserlandHeader*>(address + 64 * 1024)) { }
+    m_userlandHeader(reinterpret_cast<UserlandHeader*>(address + 64 * 1024)),
+    m_userland2Header(reinterpret_cast<UserlandHeader*>(address + 128 * 1024)) { }
 
   const KernelHeader* kernelHeader() const;
   const UserlandHeader* userlandHeader() const;
-  [[ noreturn ]] void boot() const;
+  const UserlandHeader* userland2Header() const;
+  [[ noreturn ]] void boot(const char* Slot) const;
 
   static const Slot A();
   static const Slot B();
@@ -26,6 +28,7 @@ public:
 private:
   const KernelHeader* m_kernelHeader;
   const UserlandHeader* m_userlandHeader;
+  const UserlandHeader* m_userland2Header;
 
 };
 

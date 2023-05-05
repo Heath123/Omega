@@ -6,7 +6,7 @@ namespace Ion {
 namespace Device {
 namespace USB {
 
-const char* stringDescriptor() {
+const char* stringDescriptor(int slot) {
   return Config::InterfaceStringDescriptor;
 }
 

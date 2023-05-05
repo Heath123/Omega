@@ -1,5 +1,7 @@
 #include <bootloader/slot.h>
 #include <ion/src/device/shared/drivers/board.h>
+#include <ion/src/device/shared/drivers/external_flash.h>
+#include <bootloader/interface.h>
 
 extern "C" void jump_to_firmware(const uint32_t* stackPtr, const void(*startPtr)(void));
 
@@ -21,7 +23,29 @@ const UserlandHeader* Slot::userlandHeader() const {
   return m_userlandHeader;
 }
 
-[[ noreturn ]] void Slot::boot() const {
+const UserlandHeader* Slot::userland2Header() const {
+	return m_userland2Header;
+}
+
+[[ noreturn ]] void Slot::boot(const char* Slot) const {
+	//protection mechanism against bootloader update introduced in E20
+	//check if the slot use Userland2Header
+	if (m_userland2Header->isValid()) {
+		if (Slot == "A") {
+			//check if 0x90010000 = 0xFFFFFFFF
+			if (*(uint32_t*)0x90010000 != 0xFFFFFFFF) {
+				Ion::Device::ExternalFlash::EraseSector(9);
+			}
+		}
+		else if (Slot == "B") {
+			//check if 0x90410000 = 0xFFFFFFFF
+			if (*(uint32_t*)0x90410000 != 0xFFFFFFFF) {
+				Ion::Device::ExternalFlash::EraseSector(73);
+			}
+			
+		}
+		
+	}
   // Configure the MPU for the booted firmware
   Ion::Device::Board::bootloaderMPU();
 
