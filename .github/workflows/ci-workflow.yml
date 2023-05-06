@@ -60,7 +60,7 @@ jobs:
           fxsdk path sysroot
           git clone https://gitea.planet-casio.com/Lephenixnoir/sh-elf-binutils
           cd sh-elf-binutils
-          make -f giteapc.make configure build install PREFIX="~/cache/.giteapc/bin"
+          make -f giteapc.make configure build install PREFIX="~/cache/.giteapc/"
           echo sysroot:
           tree $(fxsdk path sysroot)
           echo bin:
