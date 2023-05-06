@@ -42,20 +42,20 @@ jobs:
       - name: Install gint/fxsdk
         # if: steps.cache-gint.outputs.cache-hit != 'true'
         env:
-          GITEAPC_HOME: ~/cache/.giteapc/share/giteapc
-          GITEAPC_PREFIX: ~/cache/.giteapc
+          # GITEAPC_HOME: ~/cache/.giteapc/share/giteapc
+          # GITEAPC_PREFIX: ~/cache/.giteapc
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
           rm -rf ~/cache
           mkdir -p ~/cache/.giteapc/
           ln -s ~/.local/bin ~/cache/bin
-          export PATH="~/cache/.giteapc/bin:~/.local/bin:~/cache/.giteapc/share/fxsdk/sysroot/bin:$PATH"
+          export PATH="~/cache/.giteapc/bin:$PATH"
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
           cd giteapc
-          GITEAPC_HOME=~/cache/.giteapc/share/giteapc GITEAPC_PREFIX=~/cache/.giteapc python3 giteapc.py install Lephenixnoir/GiteaPC -y
-          sudo apt-get install python3-pil libusb-1.0-0-dev libudev-dev libsdl2-dev libpng-dev libudisks2-dev libglib2.0-dev -y
+          python3 giteapc.py install Lephenixnoir/GiteaPC -y
+          sudo apt-get install python3-pil libusb-1.0-0-dev libudev-dev libsdl2-dev libpng-dev libudisks2-dev libglib2.0-dev libmpfr-dev libmpc-dev libppl-dev -y
           giteapc install Lephenixnoir/fxsdk:noudisks2 Lephenixnoir/sh-elf-binutils Lephenixnoir/sh-elf-gcc -y
           giteapc install Lephenixnoir/OpenLibm Vhex-Kernel-Core/fxlibc Lephenixnoir/sh-elf-gcc -y
           giteapc install Lephenixnoir/gint -y
