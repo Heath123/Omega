@@ -49,6 +49,7 @@ jobs:
           rm -rf ~/cache
           mkdir -p ~/cache/.giteapc/
           ln -s ~/.local/bin ~/cache/bin
+          export PATH=~/cache/bin:$PATH
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
