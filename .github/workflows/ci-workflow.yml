@@ -42,7 +42,7 @@ jobs:
         env:
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
-          ls ~/.local/
+          tree ~/.local/
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
