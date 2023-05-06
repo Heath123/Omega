@@ -27,6 +27,7 @@ jobs:
         run: |
           LATEST_COMMIT_HASH=$(curl --silent https://gitea.planet-casio.com/api/v1/repos/Lephenixnoir/gint/branches/master | jq -r .commit.id)
           echo "Latest commit hash is: $LATEST_COMMIT_HASH"
+          echo "LATEST_COMMIT_HASH=$LATEST_COMMIT_HASH" >> $GITHUB_OUTPUT
         id: get-latest-commit-hash
 
       - name: Cache gint/fxsdk installation
@@ -42,11 +43,12 @@ jobs:
           GITEAPC_HOME: ~/.gitea/share/giteapc
           GITEAPC_PREFIX: ~/.gitea
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
-        run: cd "$(mktemp -d)"
-          && curl "$URL" -o giteapc-master.tar.gz
-          && tar -xzf giteapc-master.tar.gz
-          && cd giteapc
-          && python3 giteapc.py install Lephenixnoir/GiteaPC -y
+        run: |
+          cd "$(mktemp -d)"
+          curl "$URL" -o giteapc-master.tar.gz
+          tar -xzf giteapc-master.tar.gz
+          cd giteapc
+          python3 giteapc.py install Lephenixnoir/GiteaPC -y
 
       # - uses: actions/checkout@v2
       #   with:
