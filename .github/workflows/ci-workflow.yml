@@ -21,9 +21,10 @@ jobs:
   prizm:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        sudo apt-get update
-        sudo apt-get install curl git python3 build-essential cmake pkg-config -y
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install curl git python3 build-essential cmake pkg-config -y
       - name: Get latest gint commit hash
         run: |
           LATEST_COMMIT_HASH=$(curl --silent https://gitea.planet-casio.com/api/v1/repos/Lephenixnoir/gint/branches/master | jq -r .commit.id)
