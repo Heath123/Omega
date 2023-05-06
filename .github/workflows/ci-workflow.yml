@@ -44,8 +44,6 @@ jobs:
       - name: Install gint/fxsdk
         if: steps.cache-gint.outputs.cache-hit != 'true'
         env:
-          # GITEAPC_HOME: ~/cache/.giteapc/share/giteapc
-          # GITEAPC_PREFIX: ~/cache/.giteapc
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
           export PATH="~/.local/bin:$PATH"
@@ -59,8 +57,12 @@ jobs:
           giteapc install Lephenixnoir/OpenLibm Vhex-Kernel-Core/fxlibc Lephenixnoir/sh-elf-gcc -y
           giteapc install Lephenixnoir/gint -y
 
+      # Add to PATH
+      - name: Add fxsdk to PATH
+        run: echo "~/.local/bin" >> $GITHUB_PATH
+
       - name: fxsdk version
-        run: ~/cache/bin/fxsdk --version
+        run: fxsdk --version
 
       # - uses: actions/checkout@v2
       #   with:
