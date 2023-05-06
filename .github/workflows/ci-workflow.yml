@@ -49,8 +49,7 @@ jobs:
           rm -rf ~/cache
           mkdir -p ~/cache/.giteapc/
           ln -s ~/.local/bin ~/cache/bin
-          echo "~/.local/bin" >> $GITHUB_PATH
-          echo "~/cache/.giteapc/bin" >> $GITHUB_PATH
+          export PATH="~/cache/.giteapc/bin:~/.local/bin:$PATH"
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
