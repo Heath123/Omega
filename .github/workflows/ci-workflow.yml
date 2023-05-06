@@ -45,7 +45,7 @@ jobs:
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
           mkdir -p ~/cache/.giteapc/
-          ln -s ~/cache/bin ~/.local/bin
+          ln -s ~/.local/bin ~/cache/bin
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
