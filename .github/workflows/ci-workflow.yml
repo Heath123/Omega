@@ -36,20 +36,19 @@ jobs:
         id: cache-gint
         uses: actions/cache@v3
         with:
-          path: ~/cache
+          path: |
+            ~/.local/*/*
+            !~/.local/share/containers
           key: ${{ runner.os }}-gint-${{ steps.get-latest-commit-hash.outputs.LATEST_COMMIT_HASH }}
 
       - name: Install gint/fxsdk
-        # if: steps.cache-gint.outputs.cache-hit != 'true'
+        if: steps.cache-gint.outputs.cache-hit != 'true'
         env:
           # GITEAPC_HOME: ~/cache/.giteapc/share/giteapc
           # GITEAPC_PREFIX: ~/cache/.giteapc
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
-          rm -rf ~/cache
-          mkdir -p ~/cache/.giteapc/
-          ln -s ~/.local/bin ~/cache/bin
-          export PATH="~/cache/.giteapc/bin:~/.local/bin:$PATH"
+          export PATH="~/.local/bin:$PATH"
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
@@ -59,7 +58,6 @@ jobs:
           giteapc install Lephenixnoir/fxsdk:noudisks2 Lephenixnoir/sh-elf-binutils Lephenixnoir/sh-elf-gcc -y
           giteapc install Lephenixnoir/OpenLibm Vhex-Kernel-Core/fxlibc Lephenixnoir/sh-elf-gcc -y
           giteapc install Lephenixnoir/gint -y
-          tree ~/cache
 
       - name: fxsdk version
         run: ~/cache/bin/fxsdk --version
