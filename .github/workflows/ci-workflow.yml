@@ -21,6 +21,10 @@ jobs:
   prizm:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -64,11 +68,8 @@ jobs:
       - name: fxsdk version
         run: fxsdk --version
 
-      # - uses: actions/checkout@v2
-      #   with:
-      #     submodules: 'recursive'
-      # - run: make -j2 PLATFORM=simulator TARGET=prizm
-      # - run: cp output/release/device/n0110/binpack-n0110-`git rev-parse HEAD | head -c 7`.tgz output/release/device/n0110/binpack-n0110.tgz
+      - run: make -j2 PLATFORM=simulator TARGET=prizm
+      
       # - id: 'auth'
       #   if: ${{ github.event_name == 'push' && github.ref_name == 'upsilon-dev' && github.repository == 'UpsilonNumworks/Upsilon' }}
       #   uses: 'google-github-actions/auth@v0'
@@ -81,10 +82,10 @@ jobs:
       #     path: 'output/release/device/n0110/binpack/'
       #     destination: 'upsilon-binfiles.appspot.com/dev/n110/'
       #     parent: false
-      # - uses: actions/upload-artifact@master
-      #   with:
-      #     name: epsilon-binpack-n0110.tgz
-      #     path: output/release/device/n0110/binpack-n0110.tgz
+      - uses: actions/upload-artifact@master
+        with:
+          name: epsilon.g3a
+          path: output/release/simulator/prizm/epsilon.g3a
   # nintendo_3ds:
   #   if: github.event.inputs.trigger3DS == 'yes' || github.event.inputs.trigger3DS == ''
   #   runs-on: ubuntu-latest
