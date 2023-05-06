@@ -49,7 +49,7 @@ jobs:
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
           cd giteapc
-          GITEAPC_HOME=~/.gitea/share/giteapc GITEAPC_PREFIX=~/.gitea python3 giteapc.py install Lephenixnoir/GiteaPC -y
+          GITEAPC_HOME=~/.giteapc/share/giteapc GITEAPC_PREFIX=~/.giteapc python3 giteapc.py install Lephenixnoir/GiteaPC -y
           tree ~/.giteapc/
 
       # - uses: actions/checkout@v2
