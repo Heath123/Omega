@@ -44,6 +44,7 @@ jobs:
           GITEAPC_PREFIX: ~/cache/.giteapc
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
+          rm -rf ~/cache
           mkdir -p ~/cache/.giteapc/
           ln -s ~/.local/bin ~/cache/bin
           cd "$(mktemp -d)"
