@@ -40,17 +40,17 @@ jobs:
       - name: Install gint/fxsdk
         # if: steps.cache-gint.outputs.cache-hit != 'true'
         env:
-          GITEAPC_HOME: ~/.gitea/share/giteapc
-          GITEAPC_PREFIX: ~/.gitea
+          GITEAPC_HOME: ~/.giteapc/share/giteapc
+          GITEAPC_PREFIX: ~/.giteapc
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
-          mkdir -p ~/.gitea/
+          mkdir -p ~/.giteapc/
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
           cd giteapc
-          python3 giteapc.py install Lephenixnoir/GiteaPC -y
-          ls ~/.gitea/
+          GITEAPC_HOME=~/.gitea/share/giteapc GITEAPC_PREFIX=~/.gitea python3 giteapc.py install Lephenixnoir/GiteaPC -y
+          tree ~/.giteapc/
 
       # - uses: actions/checkout@v2
       #   with:
