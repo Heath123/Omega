@@ -52,10 +52,10 @@ jobs:
           tar -xzf giteapc-master.tar.gz
           cd giteapc
           GITEAPC_HOME=~/cache/.giteapc/share/giteapc GITEAPC_PREFIX=~/cache/.giteapc python3 giteapc.py install Lephenixnoir/GiteaPC -y
-          sudo apt install python3-pil libusb-1.0-0-dev libudev-dev libsdl2-dev libpng-dev
-          giteapc install Lephenixnoir/fxsdk:noudisks2 Lephenixnoir/sh-elf-binutils Lephenixnoir/sh-elf-gcc
-          giteapc install Lephenixnoir/OpenLibm Vhex-Kernel-Core/fxlibc Lephenixnoir/sh-elf-gcc
-          giteapc install Lephenixnoir/gint
+          sudo apt install python3-pil libusb-1.0-0-dev libudev-dev libsdl2-dev libpng-dev -y
+          giteapc install Lephenixnoir/fxsdk:noudisks2 Lephenixnoir/sh-elf-binutils Lephenixnoir/sh-elf-gcc -y
+          giteapc install Lephenixnoir/OpenLibm Vhex-Kernel-Core/fxlibc Lephenixnoir/sh-elf-gcc -y
+          giteapc install Lephenixnoir/gint -y
           tree ~/cache
 
       - name: fxsdk version
