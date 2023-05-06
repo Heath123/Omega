@@ -56,7 +56,14 @@ jobs:
           cd giteapc
           GITEAPC_HOME=~/cache/.giteapc/share/giteapc GITEAPC_PREFIX=~/cache/.giteapc python3 giteapc.py install Lephenixnoir/GiteaPC -y
           sudo apt-get install python3-pil libusb-1.0-0-dev libudev-dev libsdl2-dev libpng-dev libudisks2-dev libglib2.0-dev -y
-          giteapc install Lephenixnoir/fxsdk:noudisks2 Lephenixnoir/sh-elf-binutils -y
+          giteapc install Lephenixnoir/fxsdk:noudisks2 -y
+          fxsdk path sysroot
+          git clone https://gitea.planet-casio.com/Lephenixnoir/sh-elf-binutils
+          cd sh-elf-binutils
+          make -f giteapc.make configure build install PREFIX="~/cache/.giteapc/bin"
+          echo sysroot:
+          tree $(fxsdk path sysroot)
+          echo bin:
           tree ~/cache/.giteapc/bin
           echo $PATH
           giteapc install Lephenixnoir/sh-elf-gcc -y
