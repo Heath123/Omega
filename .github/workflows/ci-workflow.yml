@@ -38,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-gint-${{ steps.get-latest-commit-hash.outputs.LATEST_COMMIT_HASH }}
 
       - name: Install gint/fxsdk
-        if: steps.cache-gint.outputs.cache-hit != 'true'
+        # if: steps.cache-gint.outputs.cache-hit != 'true'
         env:
           GITEAPC_HOME: ~/.gitea/share/giteapc
           GITEAPC_PREFIX: ~/.gitea
