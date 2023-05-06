@@ -34,21 +34,23 @@ jobs:
         id: cache-gint
         uses: actions/cache@v3
         with:
-          path: ~/.local
+          path: ~/.gitea
           key: ${{ runner.os }}-gint-${{ steps.get-latest-commit-hash.outputs.LATEST_COMMIT_HASH }}
 
       - name: Install gint/fxsdk
-        # if: steps.cache-gint.outputs.cache-hit != 'true'
+        if: steps.cache-gint.outputs.cache-hit != 'true'
         env:
+          GITEAPC_HOME: ~/.gitea/share/giteapc
+          GITEAPC_PREFIX: ~/.gitea
           URL: "https://gitea.planet-casio.com/Lephenixnoir/GiteaPC/archive/master.tar.gz"
         run: |
-          tree ~/.local/
+          mkdir -p ~/.gitea/
           cd "$(mktemp -d)"
           curl "$URL" -o giteapc-master.tar.gz
           tar -xzf giteapc-master.tar.gz
           cd giteapc
           python3 giteapc.py install Lephenixnoir/GiteaPC -y
-          ls ~/.local/
+          ls ~/.gitea/
 
       # - uses: actions/checkout@v2
       #   with:
