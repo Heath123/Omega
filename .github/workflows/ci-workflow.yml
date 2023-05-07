@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: numworks/setup-emscripten@master
         with:
-          sdk: 1.39.16-fastcomp
+          sdk: latest-upstream
       - uses: actions/checkout@v2
         with:
           submodules: 'recursive'
